@@ -7,24 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ContentController;
+use App\Models\Content;
+use App\Http\Controllers\PageController;
 
 
-// HALAMAN PUBLIK (untuk pengunjung, tidak perlu login)
-Route::get('/', function () {
-    return view('welcome'); // homepage
-});
 
-Route::get('/about', function () {
-    return view('about'); // halaman profile company
-});
 
-Route::get('/services', function () {
-    return view('services'); // halaman layanan/perusahaan
-});
+Route::get('/', [PageController::class, 'home']);
+Route::get('/about', [PageController::class, 'about']);
+Route::get('/services', [PageController::class, 'services']);
+Route::get('/contact', [PageController::class, 'contact']);
 
-Route::get('/contact', function () {
-    return view('contact'); // halaman kontak
-});
+
 
 // ADMIN ROUTE
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -50,5 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/contents', [ContentController::class, 'index'])->name('admin.contents.index');
+    Route::get('/contents/create', [ContentController::class, 'create'])->name('admin.contents.create');
+    Route::post('/contents', [ContentController::class, 'store'])->name('admin.contents.store');
+    Route::get('/contents/{content}/edit', [ContentController::class, 'edit'])->name('admin.contents.edit');
+    Route::put('/contents/{content}', [ContentController::class, 'update'])->name('admin.contents.update');
+    Route::delete('/contents/{content}', [ContentController::class, 'destroy'])->name('admin.contents.destroy');
+});
 
 require __DIR__.'/auth.php';
