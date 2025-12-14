@@ -2,22 +2,16 @@
 
 @section('content')
 
-<h1>About Us</h1>
-
 @foreach ($page->sections as $section)
-    <section id="{{ $section->code }}">
+    <section>
         <h2>{{ $section->name }}</h2>
 
         @foreach ($section->contents as $content)
-            <article>
-                @if ($content->title)
-                    <h3>{{ $content->title }}</h3>
-                @endif
-
-                {!! nl2br(e($content->body)) !!}
-            </article>
+            <h3>{{ $content->title }}</h3>
+            <p>{{ $content->body }}</p>
         @endforeach
     </section>
 @endforeach
+
 
 @endsection

@@ -5,23 +5,17 @@
 <h1>Our Services</h1>
 
 @foreach ($page->sections as $section)
-    <section id="{{ $section->code }}">
-        <h2>{{ $section->name }}</h2>
-
-        <div class="services-wrapper">
+    @if ($section->code === 'services_list')
+        <div class="services">
             @foreach ($section->contents as $content)
-                <div class="service-card">
-                    <h3>{{ $content->title }}</h3>
-
-                    @if ($content->image)
-                        <img src="{{ asset('storage/'.$content->image) }}" alt="">
-                    @endif
-
-                    {!! nl2br(e($content->body)) !!}
+                <div class="card">
+                    <h4>{{ $content->title }}</h4>
+                    <p>{{ $content->body }}</p>
                 </div>
             @endforeach
         </div>
-    </section>
+    @endif
 @endforeach
+
 
 @endsection

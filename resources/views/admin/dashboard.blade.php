@@ -14,5 +14,10 @@
                 </div>
             </div>
         </div>
+        <div>
+            <a href="{{ route('admin.contents.index') }}" class="btn btn-primary">
+            + Tambah Content
+        </a>
+        </div>
     </div>
 </x-app-layout>
