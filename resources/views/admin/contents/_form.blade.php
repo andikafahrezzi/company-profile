@@ -2,9 +2,9 @@
 
     {{-- PAGE --}}
     <div>
-        <label class="block font-medium">Page</label>
-        <select name="page_id" class="w-full border rounded px-3 py-2" required>
-            @foreach ($pages as $page)
+        <label>Page</label>
+        <select name="page_id" required class="w-full">
+            @foreach($pages as $page)
                 <option value="{{ $page->id }}"
                     @selected(old('page_id', $content->page_id ?? '') == $page->id)>
                     {{ ucfirst($page->name) }}
@@ -15,9 +15,9 @@
 
     {{-- SECTION --}}
     <div>
-        <label class="block font-medium">Section</label>
-        <select name="section_id" class="w-full border rounded px-3 py-2" required>
-            @foreach ($sections as $section)
+        <label>Section</label>
+        <select name="section_id" required class="w-full">
+            @foreach($sections as $section)
                 <option value="{{ $section->id }}"
                     @selected(old('section_id', $content->section_id ?? '') == $section->id)>
                     {{ $section->name }}
@@ -28,40 +28,36 @@
 
     {{-- TITLE --}}
     <div>
-        <label class="block font-medium">Title</label>
+        <label>Title</label>
         <input type="text" name="title"
-            value="{{ old('title', $content->title ?? '') }}"
-            class="w-full border rounded px-3 py-2">
+               value="{{ old('title', $content->title ?? '') }}"
+               class="w-full">
     </div>
 
     {{-- BODY --}}
     <div>
-        <label class="block font-medium">Body</label>
-        <textarea name="body" rows="4"
-            class="w-full border rounded px-3 py-2">{{ old('body', $content->body ?? '') }}</textarea>
+        <label>Body</label>
+        <textarea name="body" rows="5" class="w-full">{{ old('body', $content->body ?? '') }}</textarea>
     </div>
 
     {{-- IMAGE --}}
     <div>
-        <label class="block font-medium">Image</label>
+        <label>Image</label>
         <input type="file" name="image">
 
-        @if (!empty($content?->image))
+        @isset($content?->image)
             <img src="{{ asset('storage/'.$content->image) }}"
-                 class="mt-2 h-24 rounded">
-        @endif
+                 class="h-24 mt-2 rounded">
+        @endisset
     </div>
 
     {{-- POSITION --}}
     <div>
-        <label class="block font-medium">Position</label>
+        <label>Urutan</label>
         <input type="number" name="position"
-            value="{{ old('position', $content->position ?? 0) }}"
-            class="w-full border rounded px-3 py-2">
+               value="{{ old('position', $content->position ?? 0) }}">
     </div>
 
-    <button class="bg-blue-600 text-white px-4 py-2 rounded">
-        {{ isset($content) ? 'Update' : 'Save' }}
-    </button>
+    <button class="btn btn-primary">Simpan</button>
 
 </div>

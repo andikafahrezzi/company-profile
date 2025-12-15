@@ -33,12 +33,12 @@ class ContentController extends Controller
 public function store(Request $request)
 {
     $data = $request->validate([
-        'page_id' => 'required|exists:pages,id',
+        'page_id'    => 'required|exists:pages,id',
         'section_id' => 'required|exists:sections,id',
-        'title' => 'nullable|string',
-        'body' => 'nullable|string',
-        'image' => 'nullable|image|max:2048',
-        'position' => 'integer'
+        'title'      => 'nullable|string',
+        'body'       => 'nullable|string',
+        'position'   => 'integer',
+        'image'      => 'nullable|image|max:2048',
     ]);
 
     if ($request->hasFile('image')) {
@@ -51,8 +51,6 @@ public function store(Request $request)
         ->with('success', 'Konten berhasil ditambahkan');
 }
 
-
-
     public function edit(Content $content)
     {
         $pages = Page::all();
@@ -64,17 +62,17 @@ public function store(Request $request)
 public function update(Request $request, Content $content)
 {
     $data = $request->validate([
-        'page_id' => 'required|exists:pages,id',
+        'page_id'    => 'required|exists:pages,id',
         'section_id' => 'required|exists:sections,id',
-        'title' => 'nullable|string',
-        'body' => 'nullable|string',
-        'image' => 'nullable|image|max:2048',
-        'position' => 'integer'
+        'title'      => 'nullable|string',
+        'body'       => 'nullable|string',
+        'position'   => 'integer',
+        'image'      => 'nullable|image|max:2048',
     ]);
 
     if ($request->hasFile('image')) {
 
-        // hapus gambar lama
+        // hapus image lama
         if ($content->image) {
             Storage::disk('public')->delete($content->image);
         }
@@ -85,7 +83,7 @@ public function update(Request $request, Content $content)
     $content->update($data);
 
     return redirect()->route('admin.contents.index')
-        ->with('success', 'Konten berhasil diperbarui');
+        ->with('success', 'Konten berhasil diupdate');
 }
 
 
